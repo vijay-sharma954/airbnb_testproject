@@ -1,0 +1,117 @@
+<%- layout("/layouts/boilerplate") %>
+<body>
+  <div id="filters">
+    <div class="filter">
+      <a href="/listings/mountInfo?category=Trending">
+      <div><i class="fa-solid fa-fire"></i></div>
+      <p>Trending</p>
+    </a>
+    </div>
+
+    <div class="filter">
+      <a href="/listings/mountInfo?category=Rooms">
+        <div><i class="fa-solid fa-bed-pulse"></i></div>
+        <p>Rooms</p>
+      </a>
+    </div>
+
+    <div class="filter">
+      <a href="/listings/mountInfo?category=Iconic Cities">
+      <div><i class="fa-solid fa-mountain-city"></i></div>
+      <p>Iconic Cities</p>
+    </a>
+    </div>
+
+    <div class="filter">
+      <a href="/listings/mountInfo?category=Mountains">
+        <div><i class="fa-solid fa-mountain-sun"></i></div>
+        <p>Mountains</p>
+      </a>
+    </div>
+
+    <div class="filter">
+      <a href="/listings/mountInfo?category=Castles">
+      <div><i class="fa-brands fa-fort-awesome"></i></div>
+      <p>Castles</p>
+    </a>
+    </div>
+
+    <div class="filter">
+      <a href="/listings/mountInfo?category=Amazing Pools">
+      <div><i class="fa-solid fa-person-swimming"></i></div>
+      <p>Amazing Pools</p>
+    </a>
+    </div>
+
+    <div class="filter">
+      <a href="/listings/mountInfo?category=Camping">
+      <div><i class="fa-solid fa-campground"></i></div>
+      <p>Camping</p>
+    </a>
+    </div>
+
+    <div class="filter">
+      <a href="/listings/mountInfo?category=Farms">
+      <div><i class="fa-solid fa-tractor"></i></div>
+      <p>Farms</p>
+    </a>
+    </div>
+
+    <div class="filter">
+      <a href="/listings/mountInfo?category=Arctic">
+      <div><i class="fa-regular fa-snowflake"></i></div>
+      <p>Arctic</p>
+    </a>
+    </div>
+
+    <div class="filter">
+      <a href="/listings/mountInfo?category=Domes">
+      <div><i class="fa-solid fa-landmark-dome"></i></div>
+      <p>Domes</p>
+    </a>
+    </div>
+
+    <div class="filter">
+      <a href="/listings/mountInfo?category=House Boats">
+      <div><i class="fa-solid fa-ship"></i></div>
+      <p>House Boats</p>
+    </a>
+    </div>
+
+    <div class="tax-toggle">
+      <div class="form-check-reverse form-switch">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckDefault"
+        />
+        <label class="form-check-label" for="flexSwitchCheckDefault"
+          >Display total after taxes</label
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-1 mt-3">
+    <% for(lists of allListings) { %>
+    <a class="achor" href="/listings/<%= lists._id %>">
+      <div class="card col listings-effect listing-card">
+        <img
+          src="<%= lists.image.url %>"
+          class="card-img-top"
+          alt="listings_image"
+          style="height: 20rem"
+        />
+        <div class="card-body">
+          <p class="card-text">
+            <b><%= lists.title %></b><br />
+            &#8377; <%= lists.price.toLocaleString('en-IN') %> / night
+            <i class="tax-info"><b> &nbsp; &nbsp; +18% GST</b></i>
+          </p>
+        </div>
+      </div>
+    </a>
+    <% } %>
+  </div>
+</body>
