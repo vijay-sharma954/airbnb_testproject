@@ -80,11 +80,26 @@ main().then((res) => {
     console.log("Connected to DB")
 })
     .catch((err) => {
-        console.log(err);
+        console.log("Database connection failed:", err.message);
+        console.log("App will continue running but database features may not work");
     })
 
 async function main() {
-    await mongoose.connect(dbUrl);
+    try {
+        await mongoose.connect(dbUrl, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            ssl: true,
+            sslValidate: true,
+            tlsAllowInvalidCertificates: false,
+            tlsAllowInvalidHostnames: false,
+            retryWrites: true,
+            w: 'majority'
+        });
+    } catch (error) {
+        console.log("MongoDB connection error:", error.message);
+        throw error;
+    }
 }
 
 
@@ -92,7 +107,7 @@ async function main() {
 app.use((req, res, next) => {
     res.locals.successMsg = req.flash("success"); // successMsg is actual array
     res.locals.errorMsg = req.flash("error");
-    res.locals.User = req.user;
+    res.locals.user = req.user;
     next();
 })
 
@@ -119,9 +134,10 @@ app.all("*", (req, res, next) => {
 
 // Error handler (middleware function)
 app.use((err, req, res, next) => {
-    let error = { status = 400, message = "some error occur" } = err;
-    // res.status(status).send(message);
-    res.status(status).render('error.ejs', { error });
+    let { status = 500, message = "some error occur" } = err;
+    if (!res.headersSent) {
+        res.status(status).render('error.ejs', { error: { status, message } });
+    }
 })
 
 
