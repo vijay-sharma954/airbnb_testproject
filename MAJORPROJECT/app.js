@@ -88,12 +88,7 @@ async function main() {
     try {
         await mongoose.connect(dbUrl, {
             useNewUrlParser: true,
-            useUnifiedTopology: true,
-            ssl: true,
-            sslValidate: true,
-            tlsAllowInvalidCertificates: false,
-            tlsAllowInvalidHostnames: false,
-            retryWrites: true,
+            useUnifiedTopology: true,            retryWrites: true,
             w: 'majority'
         });
     } catch (error) {
